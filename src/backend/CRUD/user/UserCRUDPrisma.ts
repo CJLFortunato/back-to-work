@@ -61,9 +61,18 @@ class UserCrudPrisma implements UserCRUD {
     }
 
     async updateUser (id: number, newUser: User) {
+        const cleanedUser = {
+            name: newUser.name,
+            email: newUser.email,
+            // eslint-disable-next-line camelcase
+            insertion_date: newUser.insertionDate,
+            // eslint-disable-next-line camelcase
+            last_connexion: newUser.lastConnexion,
+        };
+
         const userInDb = await prisma.user.update({
             where: {id: id},
-            data: {...newUser},
+            data: {...cleanedUser},
         });
 
         const updatedUser = new User(

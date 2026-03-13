@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Link from 'next/link';
+import LoginForm from '@/components/auth/LoginForm';
 
 function LoginPage () {
     return (
         <div>
             <h1>Login</h1>
-            <Link href="/applications">Login</Link>
+            <LoginForm />
         </div>
     );
 }

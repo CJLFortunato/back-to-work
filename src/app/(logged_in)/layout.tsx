@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getUserInfoById } from '@/backend/controllers/userController';
+import { logoutUser } from '@/backend/controllers/authController';
 
 async function LoggedInLayout ({children}: {children: React.ReactNode}) {
     const cookieStore = await cookies();
@@ -20,7 +21,7 @@ async function LoggedInLayout ({children}: {children: React.ReactNode}) {
                     <Link href="/applications/create">Add an application</Link>
                     <Link href="/tags">Manage Tags</Link>
                     <Link href="/user">User profile</Link>
-                    <Link href="/">Log Out</Link>
+                    <button onClick={logoutUser}>Log Out</button>
                 </nav>
             </aside>
             {children}

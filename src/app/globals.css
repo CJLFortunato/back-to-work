@@ -87,6 +87,10 @@ input[type="submit"] {
   margin-top: 1rem;
 }
 
+input[type="submit"]:disabled {
+  background-color: lightgray;
+}
+
 .error {
   color: red;
   font-style: italic;

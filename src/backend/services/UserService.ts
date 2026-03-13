@@ -1,3 +1,4 @@
+import { UserInDb } from '@/types/userTypes';
 import UserCRUD from '../CRUD/user/UserCRUDInterface';
 import User from '../models/User';
 import AuthUtils from '../utils/AuthUtils';
@@ -21,6 +22,22 @@ class UserService {
       throw new Error('An error has occured while creating user');
     }
 
+    return user;
+  }
+
+  async getUserByEmail(email: string): Promise<UserInDb> {
+    let user: UserInDb | null;
+    try {
+      user = await this.userCRUD.getUserByEmail(email);
+
+      if (!user) {
+        throw new Error('This user doesn\'t exist');
+      }
+    }
+    catch (error) {
+      console.error(error);
+      throw new Error('An error has occured while fetching user');
+    }
     return user;
   }
 

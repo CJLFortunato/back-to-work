@@ -1,14 +1,42 @@
+import { UserInDb } from '@/types/userTypes';
 import User from '../models/User';
 import AuthUtils from '../utils/AuthUtils';
 import UserService from './UserService';
+import bcrypt from 'bcrypt';
 
 class AuthService {
     userService: UserService;
     constructor (userService: UserService) {
         this.userService = userService;
     }
-  login() {
-    return 'User has been logged in';
+  async login(email: string, password: string) {
+    let user: User;
+
+    try {
+      const userInDb: UserInDb = await this.userService.getUserByEmail(email);
+
+      if (!userInDb) {
+        throw new Error('User doesn\'t exist');
+      }
+
+      const passwordMatches = await bcrypt.compare(password, userInDb.password);
+
+      if (!passwordMatches) {
+        throw new Error('Wrong password');
+      }
+
+      user = new User(
+        userInDb.id,
+        userInDb.email,
+        userInDb.name,
+        userInDb.insertion_date,
+        userInDb.last_connexion,
+      );
+    } catch (error) {
+      console.error(error);
+      throw new Error('An error has occured during the login process');
+    }
+    return user;
   }
 
   async register(email: string, password: string, name: string) {
