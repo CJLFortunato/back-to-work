@@ -1,8 +1,17 @@
 import React from 'react';
 
 import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { getUserInfoById } from '@/backend/controllers/userController';
 
-function LoggedInLayout ({children}: {children: React.ReactNode}) {
+async function LoggedInLayout ({children}: {children: React.ReactNode}) {
+    const cookieStore = await cookies();
+    const userId = cookieStore.get('user');
+    if (!userId || !userId.value) redirect('/login');
+    const user = await getUserInfoById(parseInt(userId.value));
+    if (!user) redirect('/login');
+
     return (
         <main className="logged-in-main">
             <aside>
