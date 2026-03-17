@@ -97,6 +97,16 @@ input[type="submit"]:disabled {
   font-size: .9rem;
 }
 
+.dashboard {
+  border: 1px solid dodgerblue;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.app-list {
+  border: 1px solid dodgerblue;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
