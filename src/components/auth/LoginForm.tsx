@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import Form from 'next/form';
 import { loginUser } from '@/backend/controllers/authController';
+import LabelledInput from '../misc/LabelledInput';
 
 function LoginForm () {
     const [formValues, setFormValues] = useState({
@@ -27,10 +28,21 @@ function LoginForm () {
 
     return (
         <Form action={loginUser}>
-            <label htmlFor="email">Enter your email address</label>
-            <input type="email" name="email" id="email" value={formValues.email} onChange={handleChange} required/>
-            <label htmlFor="password">Enter your password</label>
-            <input type="password" name="password" id="password" value={formValues.password} onChange={handleChange} required/>
+            <LabelledInput
+                label="Enter your email address"
+                inputType="text"
+                name="email"
+                value={formValues.email}
+                handleChange={handleChange}
+                placeholder="ex: janedoe@exemple.com"
+            />
+            <LabelledInput
+                label="Enter your password"
+                inputType="password"
+                name="password"
+                value={formValues.password}
+                handleChange={handleChange}
+            />
             <p className="error">{error}</p>
             <input type="submit" value="Log In" disabled={error !== ''} />
         </Form>

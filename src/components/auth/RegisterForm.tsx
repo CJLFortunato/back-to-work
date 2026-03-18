@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Form from 'next/form';
 import { registerUser } from '@/backend/controllers/authController';
 import { checkPasswordsMatch } from '@/validation/formValidation/registerFormValidation';
+import LabelledInput from '../misc/LabelledInput';
 
 function RegisterForm () {
     const [formValues, setFormValues] = useState({
@@ -30,14 +31,36 @@ function RegisterForm () {
 
     return (
         <Form action={registerUser}>
-            <label htmlFor="email">Enter your email address</label>
-            <input type="email" name="email" id="email" value={formValues.email} onChange={handleChange} required/>
-            <label htmlFor="name">Enter your name</label>
-            <input type="text" name="name" id="name" value={formValues.name} onChange={handleChange} required/>
-            <label htmlFor="password">Enter your password</label>
-            <input type="password" name="password" id="password" value={formValues.password} onChange={handleChange} required/>
-            <label htmlFor="password2">Confirm your password</label>
-            <input type="password" name="password2" id="password2" value={formValues.password2} onChange={handleChange} required/>
+            <LabelledInput
+                label="Enter your email address"
+                inputType="text"
+                name="email"
+                value={formValues.email}
+                handleChange={handleChange}
+                placeholder="ex: janedoe@exemple.com"
+            />
+            <LabelledInput
+                label="Enter your name"
+                inputType="text"
+                name="name"
+                value={formValues.name}
+                handleChange={handleChange}
+                placeholder="Give us something to call you by!"
+            />
+            <LabelledInput
+                label="Enter your password"
+                inputType="password"
+                name="password"
+                value={formValues.password}
+                handleChange={handleChange}
+            />
+            <LabelledInput
+                label="Confirm your password"
+                inputType="password"
+                name="password2"
+                value={formValues.password2}
+                handleChange={handleChange}
+            />
             <p className="error">{error}</p>
             <input type="submit" value="Create your account" disabled={error !== ''} />
         </Form>
