@@ -38,3 +38,24 @@ export type ApplicationCreate = {
     interviews: Interview[];
     contacts: Contact[];
 };
+
+export type ApplicationType = {
+    id: number,
+    jobTitle: string;
+    company: string | null;
+    contractType: string | null;
+    location: string | null;
+    salaryMin: number | null;
+    salaryMax: number | null;
+    notes: string | null;
+    status: string;
+    hired: boolean | null;
+    insertionDate: Date;
+    closureDate: Date | null;
+    archivalDate: Date | null;
+    active: boolean;
+    userId: number;
+    tags: Tag[];
+    interviews: Interview[];
+    contacts: Contact[];
+};

@@ -3,7 +3,7 @@ import React from 'react';
 
 function DashboardPage () {
     return (
-        <div className="dashboard">
+        <div className="logged-in-page">
             <h1>Dashboard</h1>
             <AppList />
         </div>

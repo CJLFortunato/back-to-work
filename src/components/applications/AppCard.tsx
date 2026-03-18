@@ -1,8 +1,10 @@
-import Application from '@/backend/models/Application';
+'use client';
+
+import { ApplicationType } from '@/types/applicationsTypes';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
-function AppCard ({ application }: { application: Application}) {
+function AppCard ({ application }: { application: ApplicationType}) {
     return (
         <section onClick={() => redirect(`/applications/${application.id}`)}>
             <h3>{application.jobTitle}</h3>

@@ -3,6 +3,7 @@
 import { ApplicationCreate } from '@/types/applicationsTypes';
 import ApplicationsCRUDPrisma from '../CRUD/applications/ApplicationsCRUDPrisma';
 import ApplicationsService from '../services/ApplicationsService';
+import { redirect } from 'next/navigation';
 
 const appCRUD = new ApplicationsCRUDPrisma();
 const appService = new ApplicationsService(appCRUD);
@@ -20,13 +21,13 @@ export async function getApplicationById (id: number) {
 export async function createApplication (formData: FormData) {
     const newApp: ApplicationCreate = {
         jobTitle: formData.get('jobTitle')?.toString() || '',
-        company: formData.get('company')?.toString() || '',
-        contractType: formData.get('contractType')?.toString() || '',
-        location: formData.get('location')?.toString() || '',
-        salaryMin: formData.get('salaryMin')? parseFloat(formData.get('salaryMin')?.toString() || '') : null,
-        salaryMax: formData.get('salaryMax')? parseFloat(formData.get('salaryMax')?.toString() || '') : null,
-        notes: formData.get('jobTitle')?.toString() || '',
-        status: formData.get('jobTitle')?.toString() || '',
+        company: formData.get('company')?.toString() || null,
+        contractType: formData.get('contractType')?.toString() || null,
+        location: formData.get('location')?.toString() || null,
+        salaryMin: formData.get('salaryMin')? parseFloat(formData.get('salaryMin')?.toString() || '0') : null,
+        salaryMax: formData.get('salaryMax')? parseFloat(formData.get('salaryMax')?.toString() || '0') : null,
+        notes: formData.get('notes')?.toString() || null,
+        status: formData.get('status')?.toString() || 'created',
         hired: null,
         closureDate: null,
         archivalDate: null,
@@ -36,6 +37,15 @@ export async function createApplication (formData: FormData) {
         contacts: [],
         interviews: [],
     };
-    const applications = await appService.createApplication(newApp);
-    return applications;
+
+    // eslint-disable-next-line no-useless-assignment
+    let canRedirect = false;
+    try {
+        await appService.createApplication(newApp);
+        canRedirect = true;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error creating application');
+    }
+    if (canRedirect) return redirect('/applications');
 };
