@@ -106,6 +106,53 @@ class ApplicationsCRUDPrisma implements ApplicationsCRUD {
         return application;
     };
 
+    async updateApplication (newApp: Application) {
+        const appInDb = await prisma.application.update({
+            where: {id: newApp.id},
+            data: {
+                job_title: newApp.jobTitle,
+                company: newApp.company,
+                contract_type: newApp.contractType,
+                location: newApp.location,
+                salary_min: newApp.salaryMin,
+                salary_max: newApp.salaryMax,
+                notes: newApp.notes,
+                status: newApp.status,
+                hired: newApp.hired,
+                closure_date: newApp.closureDate,
+                archival_date: newApp.archivalDate,
+                active: newApp.active,
+                user_id: newApp.userId,
+            },
+        });
+
+        const application = new Application(
+            appInDb.id,
+            appInDb.job_title,
+            appInDb.company,
+            appInDb.contract_type,
+            appInDb.location,
+            appInDb.salary_min,
+            appInDb.salary_max,
+            appInDb.notes,
+            appInDb.status,
+            appInDb.hired,
+            appInDb.closure_date,
+            appInDb.archival_date,
+            appInDb.insertion_date,
+            appInDb.active,
+            appInDb.user_id,
+        );
+
+        return application;
+    }
+
+    async deleteApplication (id: number) {
+        await prisma.application.delete({
+            where: { id: id},
+        });
+    }
+
 }
 
 export default ApplicationsCRUDPrisma;

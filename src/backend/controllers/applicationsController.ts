@@ -4,6 +4,7 @@ import { ApplicationCreate } from '@/types/applicationsTypes';
 import ApplicationsCRUDPrisma from '../CRUD/applications/ApplicationsCRUDPrisma';
 import ApplicationsService from '../services/ApplicationsService';
 import { redirect } from 'next/navigation';
+import Application from '../models/Application';
 
 const appCRUD = new ApplicationsCRUDPrisma();
 const appService = new ApplicationsService(appCRUD);
@@ -49,3 +50,24 @@ export async function createApplication (formData: FormData) {
     }
     if (canRedirect) return redirect('/applications');
 };
+
+export async function updateApplication (newApp: Application) {
+    console.log(newApp);
+    try {
+        await appService.updateApplication(newApp);
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error updating application');
+    }
+}
+
+export async function deleteApplication (id: number) {
+    try {
+        await appService.deleteApplication(id);
+    } catch (e) {
+        console.error(e);
+        throw new Error('An error occured while deleting the application');
+    }
+
+    return redirect('/applications');
+}

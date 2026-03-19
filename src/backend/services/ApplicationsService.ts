@@ -48,6 +48,24 @@ class ApplicationsService {
     }
     return applications;
   }
+
+  async updateApplication(newApp: Application): Promise<Application> {
+    let application: Application;
+
+    try {
+      application = await this.appCRUD.updateApplication(newApp);
+    }
+    catch (error) {
+      console.error(error);
+      throw new Error('An error has occured while updating application');
+    }
+
+    return application;
+  }
+
+  async deleteApplication (id: number): Promise<void> {
+    await this.appCRUD.deleteApplication(id);
+  }
 }
 
 export default ApplicationsService;
