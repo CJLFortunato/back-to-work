@@ -5,7 +5,7 @@ import RegisterForm from '@/components/auth/RegisterForm';
 
 function RegisterPage () {
     return (
-        <div>
+        <div className="logged-in-page">
             <h1>Register</h1>
             <RegisterForm />
         </div>

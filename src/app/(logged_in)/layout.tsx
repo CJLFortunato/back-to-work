@@ -16,13 +16,14 @@ async function LoggedInLayout ({children}: {children: React.ReactNode}) {
     return (
         <main className="logged-in-main">
             <aside>
-                <p>Back To Work</p>
+                <p className="title">Back To Work</p>
                 <nav>
-                    <Link href="/applications/create">Add an application</Link>
+                    <Link href="/applications/create" className="link-btn"> + Add an application</Link>
+                    <Link href="/applications">Applications</Link>
                     <Link href="/tags">Manage Tags</Link>
                     <Link href="/user">User profile</Link>
-                    <button onClick={logoutUser}>Log Out</button>
                 </nav>
+                    <button onClick={logoutUser}>Log Out</button>
             </aside>
             {children}
         </main>

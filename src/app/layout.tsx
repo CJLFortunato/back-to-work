@@ -1,16 +1,16 @@
 import React from 'react';
 import type { Metadata } from 'next';
 // eslint-disable-next-line camelcase
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Vina_Sans, SUSE_Mono } from 'next/font/google';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
+const vinaSans = Vina_Sans({
+  variable: '--font-vina-sans',
+  weight: '400',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const suseMono = SUSE_Mono({
+  variable: '--font-suse-mono',
   subsets: ['latin'],
 });
 
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${vinaSans.variable} ${suseMono.variable}`}>
         {children}
       </body>
     </html>
