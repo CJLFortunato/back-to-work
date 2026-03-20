@@ -20,7 +20,7 @@ async function AppPage ({params}: {params: Promise<{ id: string }>}) {
             <p>{app.insertionDate.toLocaleString()}</p>
             <p>{app.notes}</p>
              <div className="btn-ctn">
-                <Link href={`/applications/${app.id}/update`} className="link-btn">E</Link>
+                <Link href={`/applications/${app.id}/update`} className="link-btn">Edit application</Link>
             </div>
         </div>
     );
