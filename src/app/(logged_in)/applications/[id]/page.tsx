@@ -1,4 +1,5 @@
 import { getApplicationById } from '@/backend/controllers/applicationsController';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
@@ -18,6 +19,9 @@ async function AppPage ({params}: {params: Promise<{ id: string }>}) {
             <p>{app.hired}</p>
             <p>{app.insertionDate.toLocaleString()}</p>
             <p>{app.notes}</p>
+             <div className="btn-ctn">
+                <Link href={`/applications/${app.id}/update`} className="link-btn">E</Link>
+            </div>
         </div>
     );
 }

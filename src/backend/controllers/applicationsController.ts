@@ -51,7 +51,7 @@ export async function createApplication (formData: FormData) {
     if (canRedirect) return redirect('/applications');
 };
 
-export async function updateApplication (newApp: Application) {
+export async function updateApplication (newApp: Application, redirectAddress: string = '') {
     console.log(newApp);
     try {
         await appService.updateApplication(newApp);
@@ -59,6 +59,7 @@ export async function updateApplication (newApp: Application) {
         console.error(error);
         throw new Error('Error updating application');
     }
+    if (redirectAddress) return redirect(redirectAddress);
 }
 
 export async function deleteApplication (id: number) {

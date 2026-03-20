@@ -1,23 +1,20 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 'use client';
 
-import { createApplication } from '@/backend/controllers/applicationsController';
+import {updateApplication } from '@/backend/controllers/applicationsController';
 import Form from 'next/form';
 import React, { useEffect, useState } from 'react';
 import LabelledInput from '../misc/LabelledInput';
-import { ApplicationCreate } from '@/types/applicationsTypes';
+import Application from '@/backend/models/Application';
 
-function CreateForm({ userId }: {userId: number}) {
-    const [formValues, setFormValues] = useState<Partial<ApplicationCreate>>({
-            jobTitle: '',
-            company: '',
-            contractType: '',
-            location: '',
-            salaryMin: 0,
-            salaryMax: 0,
-            notes: '',
-            status: 'created',
-            userId,
+type UpdateFormProps = {
+    app: Application,
+};
+
+function UpdateForm(props: UpdateFormProps) {
+    const { app } = props;
+    const [formValues, setFormValues] = useState<Application>({
+            ...app,
         });
         const [error, setError] = useState('');
 
@@ -34,7 +31,7 @@ function CreateForm({ userId }: {userId: number}) {
         }, [formValues]);
 
     return (
-        <Form action={createApplication}>
+        <Form onSubmit={(e) => {e.preventDefault(); updateApplication(formValues, `/applications/${app.id}`);}} action="">
             <LabelledInput
                 label="Job Title"
                 inputType="text"
@@ -88,11 +85,10 @@ function CreateForm({ userId }: {userId: number}) {
                 </option>
             </select>
             <textarea name="notes" id="notes" value={formValues.notes || undefined} onChange={handleChange}/>
-            <input type="hidden" name="userId" value={formValues.userId}/>
             <p className="error">{error}</p>
-            <input type="submit" value="Create application" disabled={error !== ''} />
+            <input type="submit" value="Update application" disabled={error !== ''} />
         </Form>
     );
 }
 
-export default CreateForm;
+export default UpdateForm;
