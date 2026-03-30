@@ -34,8 +34,15 @@ a:hover {
 button, .link-btn, input[type="submit"] {
     @include mixins.button(variables.$primary-color, white, none, variables.$background-color);
 }
-button:hover, .link-btn:hover, input[type="submit"] {
+button:hover, .link-btn:hover, input[type="submit"]:hover {
     @include mixins.button(variables.$accent-color, white, none, variables.$background-color);
+}
+
+.button-secondary {
+  @include mixins.button(white, variables.$primary-color, none , transparent);
+}
+.button-secondary:hover {
+  @include mixins.button(white, variables.$accent-color, none , transparent);
 }
 
 form {
@@ -48,6 +55,7 @@ form {
   width: 100%;
   margin: 0 auto;
   padding: 1rem;
+  gap: .5rem;
 }
 
 .labelled-input {
@@ -91,4 +99,10 @@ select {
   padding: 0 10px;
   border: 2px solid variables.$primary-color;
   background-color: white;
+}
+
+.error {
+  color: red;
+  font-style: italic;
+  font-size: .9rem;
 }

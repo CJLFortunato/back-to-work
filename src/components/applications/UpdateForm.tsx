@@ -17,12 +17,19 @@ function UpdateForm(props: UpdateFormProps) {
             ...app,
         });
         const [error, setError] = useState('');
+        const [isChanged, setIsChanged] = useState(false);
 
         const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
             setFormValues(prev => ({
                 ...prev,
                 [e.target.name]: e.target.value,
             }));
+            setIsChanged(true);
+        };
+
+        const handleReset = () => {
+            setFormValues({...app});
+            setIsChanged(false);
         };
 
         useEffect(() => {
@@ -31,7 +38,7 @@ function UpdateForm(props: UpdateFormProps) {
         }, [formValues]);
 
     return (
-        <Form onSubmit={(e) => {e.preventDefault(); updateApplication(formValues, `/applications/${app.id}`);}} action="">
+        <Form onSubmit={(e) => {e.preventDefault(); updateApplication(formValues, `/applications/${app.id}`);}} action="" className="update-form">
             <LabelledInput
                 label="Job Title"
                 inputType="text"
@@ -44,7 +51,7 @@ function UpdateForm(props: UpdateFormProps) {
                 label="Company"
                 inputType="text"
                 name="company"
-                value={formValues.company || undefined}
+                value={formValues.company || ''}
                 handleChange={handleChange}
                 placeholder="ex: ACME"
             />
@@ -52,7 +59,7 @@ function UpdateForm(props: UpdateFormProps) {
                 label="Contract type"
                 inputType="text"
                 name="contractType"
-                value={formValues.contractType || undefined}
+                value={formValues.contractType || ''}
                 handleChange={handleChange}
                 placeholder="ex: Salaried, freelance, CDI..."
             />
@@ -60,7 +67,7 @@ function UpdateForm(props: UpdateFormProps) {
                 label="Location"
                 inputType="text"
                 name="location"
-                value={formValues.location || undefined}
+                value={formValues.location || ''}
                 handleChange={handleChange}
                 placeholder="ex: New York, Paris, Shangai..."
             />
@@ -86,7 +93,12 @@ function UpdateForm(props: UpdateFormProps) {
             </select>
             <textarea name="notes" id="notes" value={formValues.notes || undefined} onChange={handleChange}/>
             <p className="error">{error}</p>
-            <input type="submit" value="Update application" disabled={error !== ''} />
+            {isChanged && (
+                <div className="btn-ctn">
+                    <input type="submit" value="Update application" disabled={error !== ''} />
+                    <button onClick={handleReset} className="button-secondary">Reset changes</button>
+                </div>
+            )}
         </Form>
     );
 }

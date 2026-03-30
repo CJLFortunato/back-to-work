@@ -77,6 +77,21 @@
 
 }
 
+.update-form {
+    input, textarea, select {
+        background-color: variables.$background-color;
+        border: none;
+    }
+    .btn-ctn {
+            @include mixins.flexCtn(row, center, space-between, 0);
+            border: 1px solid orange;
+            width: 50%;
+
+            input[type="submit"] {
+                width: fit-content;
+            }
+        }
+}
 .logged-in-page {
     // border: 3px solid variables.$primary-color;
     width: 40%;
